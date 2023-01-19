@@ -1,0 +1,12 @@
+
+.todoItem {
+  list-style: none;
+  font-size: 20px;
+  display: flex;
+  column-gap: 30px;
+  padding: 20px 0;
+
+  &:not(:first-child) {
+    border-top: 1px solid #cfcac3;
+  }
+}

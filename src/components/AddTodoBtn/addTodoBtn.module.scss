@@ -1,0 +1,40 @@
+.btn {
+  display: block;
+  width: 70px;
+  height: 70px;
+  font-size: 24px;
+  font-family: 'Avenir', sans-serif;
+  text-align: center;
+  line-height: 70px;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  background-color: #670b97;
+  cursor: pointer;
+  box-shadow: 0 0 0 0 rgba(#670b97, .5);
+  //animation: pulse 1.5s infinite;
+  transition: background-color 0.1s;
+
+  &:hover {
+    animation: none;
+  }
+
+  &:active {
+    background-color: #531075;
+  }
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(.9);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 30px rgba(#5a99d4, 0);
+  }
+  100% {
+    transform: scale(.9);
+    box-shadow: 0 0 0 0 rgba(#5a99d4, 0);
+  }
+}
