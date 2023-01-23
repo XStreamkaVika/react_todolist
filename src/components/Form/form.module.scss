@@ -41,7 +41,10 @@
 .formWrapActive {
   display: flex;
   background: white;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 45px 60px;
   flex-direction: column;
   row-gap: 30px;
@@ -57,3 +60,16 @@
   top: 15px;
   right: 5px;
 }
+
+.errorEmpty {
+  display: none;
+
+  &_active {
+    color: red;
+    display: block;
+  }
+}
+
+//.errorEmptyActive {
+//
+//}

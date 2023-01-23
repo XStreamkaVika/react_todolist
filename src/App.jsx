@@ -12,13 +12,20 @@ const App = () => {
     const [inputValue, setInputValue] = useState("");
     const [todo, setTodo] = useState([]);
     const [isPopupActive, setIsPopupActive] = useState(false); /*добавление активного класса для открытия popup*/
+    const [isTextareaEmpty, setIsTextareaEmpty] = useState(false); /*проверка на пустоту textarea при написании to-do*/
 
     // Добавление нового to-do в массив
     const onBtnClick = () => {
-        setTodo([...todo, {id: todo.length + 1, title: inputValue}])
-        setIsPopupActive(false)
-        setInputValue("")
+        if (inputValue !== "") {
+            setTodo([...todo, {id: todo.length + 1, title: inputValue, creatingTime: new Date(), isDone: false}])
+            setIsPopupActive(false)
+            setInputValue("")
+            setIsTextareaEmpty(false);
+        } else {
+            setIsTextareaEmpty(true);
+        }
     }
+
 
     // Открытие popup
     const onPopupOpen = () => {
@@ -30,6 +37,23 @@ const App = () => {
         setIsPopupActive(false);
     }
 
+    // Удаление to-do из массива
+    const removeTodo = (id) => {
+        setTodo(prevState => prevState.filter(el => el.id !== id))
+    }
+
+    const checkboxClick = (id) => {
+        setTodo(prevState => {
+            let items = prevState.filter(el => el.id !== id)
+            let item = prevState.find(el => el.id === id)
+            item.isDone = !item.isDone
+            items.push(item)
+            return items
+        });
+    }
+
+
+
     return (
         <div className={isPopupActive ? style.mainWrapLayout : style.mainWrap}>
 
@@ -38,14 +62,15 @@ const App = () => {
             {todo.length === 0 ? <NoTodoText/> :
                 <ul className={style.todoList}>
                     {todo.map(item =>
-                        <TodoList key={item.id} title={item.title}/>
+                        <TodoList key={item.id} {...item} removeTodo={removeTodo} checkboxClick={checkboxClick}/>
                     )}
                 </ul>
             }
 
             <AddTodoBtn onPopupOpen={onPopupOpen}/>
 
-            <Form inputValue={inputValue} setInputValue={setInputValue} onBtnClick={onBtnClick} isActive={isPopupActive} onPopupClose={onPopupClose}/>
+            <Form inputValue={inputValue} setInputValue={setInputValue} onBtnClick={onBtnClick} isActive={isPopupActive}
+                  onPopupClose={onPopupClose} isEmpty={isTextareaEmpty}/>
         </div>
     )
 }

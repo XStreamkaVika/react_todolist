@@ -16,6 +16,7 @@ const Form = (props) => {
             </button>
             <h2>Here you can add your task</h2>
             <textarea className={style.textarea} placeholder={"write your to-do"} value={props.inputValue} onChange={onChangeInput}/>
+            <p className={props.isEmpty ? style.errorEmpty_active : style.errorEmpty}>The field is empty</p>
             <button className={style.addBtn} onClick={props.onBtnClick}>add to-do</button>
         </div>
     )
